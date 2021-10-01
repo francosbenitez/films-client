@@ -21,14 +21,19 @@ class ApiService {
             method: "DELETE"
         };
         const response = await fetch(`${this.baseUrl}/${pFilmId}`, requestOptions);
+        console.log(response)
         return response.json()
     }
 
-    async update(pFilmId) {
+    async update(pFilmId, pUpdatedFilm) {
         const requestOptions = {
-            method: "PUT"
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(pUpdatedFilm)
+            //body: JSON.stringify({ title: 'React Hooks PUT Request Example' })
         };
         const response = await fetch(`${this.baseUrl}/${pFilmId}`, requestOptions);
+        //console.log(response, pFilmId)
         return response.json();
     }
 }
@@ -39,7 +44,7 @@ const app = new Vue({
         films: [],
         apiService: null,
         newFilm: {},
-        updateFilm: {}
+        updatedFilm: []
     },
     async created() {
         this.apiService = new ApiService();
@@ -54,10 +59,12 @@ const app = new Vue({
         onClickEliminar: async function(pFilmId) {
             await this.apiService.delete(pFilmId);
             this.films = await this.apiService.getAll();
+            console.log(pFilmId)
         },
         onClickUpdate: async function(pFilmId) {
             await this.apiService.update(pFilmId);
+            this.films = await this.apiService.getAll();
             console.log(pFilmId)
         }
     }
-})
+});
