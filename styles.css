@@ -1,0 +1,24 @@
+.films {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.film {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.yellow {
+    color: goldenrod;
+}
+
+.score {
+    display: flex;
+    flex-direction: row;
+}
